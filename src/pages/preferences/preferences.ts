@@ -8,7 +8,10 @@ import { NavController } from 'ionic-angular';
 
 
 export class PreferencesPage {
-  preferences: any;
+	rangeSafety: number;
+	rangeCost: number;
+	rangeTime: number;
+	rangeCal: number;
   constructor(public navCtrl: NavController) {
   	this.rangeSafety = 2;
   	this.rangeCost = 3;

@@ -3,24 +3,30 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>
-      FlexiRoute
-    </ion-title>
-  </ion-navbar>
-</ion-header>
-<ion-content padding id="page2">
-  <form id="home-form1">
-    <ion-item id="home-input1">
-      <ion-label>
+     <!-- <img src="logo.jpg" width="130px" style="display:inline-block" height="40px"/> -->
+      <ion-title>FlexiRoute</ion-title>
+   </ion-navbar>
+  <ion-item id="home-input1">
+     <!-- <ion-label>
         From
-      </ion-label>
-      <ion-input type="text" placeholder=""></ion-input>
+      </ion-label> -->
+      <ion-input id="inputFrom"  class="controls" type="text" placeholder ="From"></ion-input>
     </ion-item>
     <ion-item id="home-input2">
-      <ion-label>
+      <!-- <ion-label>
         To
-      </ion-label>
-      <ion-input type="text" placeholder=""></ion-input>
+      </ion-label>-->
+      <ion-input id="inputTo" type="text" placeholder="To"></ion-input>
     </ion-item>
-  </form>
-</ion-content>
+</ion-header>
+<ion-content style="margin-bottom: 0px">
+  <ion-content>
+      <div #map id="map"></div>
+      <button ion-button full>FlexiRoute Me</button>
+  </ion-content>
+ 
+  
+  
+   
+    
+    
