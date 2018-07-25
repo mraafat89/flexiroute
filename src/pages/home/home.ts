@@ -63,39 +63,97 @@ var countryRestrict = {'country': 'us'};
 })
 export class HomePage {
   @ViewChild('map') mapElement: ElementRef;
-  map: any;
-  start = 'chicago, il';
-  end = 'chicago, il';
   directionsService = new google.maps.DirectionsService;
   directionsDisplay = new google.maps.DirectionsRenderer;
   inputFrom: ElementRef;
 
   constructor(public navCtrl: NavController) {}
-  ionViewDidLoad(){
+    ionViewDidLoad(){
     this.initMap();
   }
-   initMap() {
-    var options = { componentRestrictions: { country: 'usa' }, types: ['geocode'] }
+  initMap() {
     var inputFrom = document.getElementById('inputFrom').getElementsByTagName('input')[0];
     var inputTo = document.getElementById('inputTo').getElementsByTagName('input')[0];
-    this.map = new google.maps.Map(this.mapElement.nativeElement, {
+    var map = new google.maps.Map(this.mapElement.nativeElement, {
       zoom: countries['us'].zoom,
       center: countries['us'].center,
       streetViewControl: false
     });
-    this.directionsDisplay.setMap(this.map);
-    var autocompleteFrom = new google.maps.places.Autocomplete(
-      inputFrom, {componentRestrictions: countryRestrict});
-    var autocompleteTo = new google.maps.places.Autocomplete(
-      inputTo, {componentRestrictions: countryRestrict});
-      var places = new google.maps.places.PlacesService(this.map);
-
-   // autocomplete.addListener('place_changed', onPlaceChanged);
-  }
-    onPlaceChanged(){
-      
+    this.directionsDisplay.setMap(map);
+    var autocompleteFrom = new google.maps.places.Autocomplete(inputFrom, {componentRestrictions: countryRestrict});
+    var autocompleteTo = new google.maps.places.Autocomplete(inputTo, {componentRestrictions: countryRestrict});
+    var markerFrom = new google.maps.Marker({
+      map: map,
+      anchorPoint: new google.maps.Point(0, -29),
+      label: 'A'
+    });
+    var markerTo = new google.maps.Marker({
+      map: map,
+      anchorPoint: new google.maps.Point(0, -29),
+      label: 'B'
+    });
+    autocompleteFrom.addListener('place_changed', function(){
+      markerFrom.setVisible(false);
+      var place = autocompleteFrom.getPlace();
+      if (!place.geometry) {
+        window.alert("No details available for input: '" + place.name + "'");
+        return;
+      }
+      if (place.geometry.viewport) {
+        map.fitBounds(place.geometry.viewport);
+      } else {
+        map.setCenter(place.geometry.location);
+        map.setZoom(13);
+      }
+      markerFrom.setPosition(place.geometry.location);
+      markerFrom.setVisible(true);
+      fitBoundsToVisibleMarkers();
+    });
+    autocompleteTo.addListener('place_changed', function(){
+      markerTo.setVisible(false);
+      var place = autocompleteTo.getPlace();
+      if (!place.geometry) {
+        window.alert("No details available for input: '" + place.name + "'");
+        return;
+      }
+      if (place.geometry.viewport) {
+        map.fitBounds(place.geometry.viewport);
+      } else {
+        map.setCenter(place.geometry.location);
+        map.setZoom(13);
+      }
+      markerTo.setPosition(place.geometry.location);
+      markerTo.setVisible(true);
+      fitBoundsToVisibleMarkers();
+    });
+    function fitBoundsToVisibleMarkers() {
+      var bounds = new google.maps.LatLngBounds();
+      if(markerFrom.getVisible())
+        bounds.extend(markerFrom.getPosition());
+      if(markerTo.getVisible())
+        bounds.extend(markerTo.getPosition());
+      map.fitBounds(bounds);
     }
-  calculateAndDisplayRoute() {
+  }
+    onPlaceChangedFrom(){   
+     // infowindow.close();
+     
+    
+
+     // var address = '';
+    /*  if (place.address_components) {
+        address = [
+          (place.address_components[0] && place.address_components[0].short_name || ''),
+          (place.address_components[1] && place.address_components[1].short_name || ''),
+          (place.address_components[2] && place.address_components[2].short_name || '')
+        ].join(' ');
+      }
+*/
+     // infowindowContent.children['place-icon'].src = place.icon;
+      //infowindowContent.children['place-name'].textContent = place.name;
+      //infowindowContent.children['place-address'].textContent = address;
+    }
+    onPlaceChangedTo() {
   //   this.directionsService.route({
   //     origin: this.start,
   //     destination: this.end,
