@@ -4,7 +4,7 @@ export class FlexiSegment {
     // starting point
     origin :{lat:string, lon: string};
     // ending point
-    dstn: {lat:string, lon: string};
+    destn: {lat:string, lon: string};
     // mode of transportation: Drivin, walking, bicycling, ... etc
     mode: string;
     // cost of the segment
@@ -16,14 +16,34 @@ export class FlexiSegment {
     // safety factor of the segment
     safetyFactor: number;
     // avoid tolls or not
-    avoidTolls: boolean;
+    avoidTolls: string;
     // avoid highways or not
-    avoidHighways: boolean;
+    avoidHighways: string;
     // start time of the segment
     startTime: Time;
-
-    constructor(){
-
+    // alternatives or not
+    alternative: string;
+    // index of the alternative that google maps gives
+    alternativeIdx: number;
+    // distance
+    distance: number;
+    constructor(origin, destn, mode, avoidTolls, alternative, alternativeIdx){
+        this.origin = origin;
+        this.destn = destn;
+        this.avoidTolls = avoidTolls;
+        this.alternative = alternative;
+        this.alternativeIdx = alternativeIdx;
+        this.mode = mode;
+    }
+    // temporaty setters
+    setCost(cost){
+        this.cost = cost;
+    }
+    setCal(cal){
+        this.cal = cal;
+    }
+    setSafetyFactor(safetyFactor){
+        this.safetyFactor = safetyFactor;
     }
 
     getCost(){

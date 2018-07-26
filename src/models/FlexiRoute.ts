@@ -1,17 +1,30 @@
 import { FlexiSegment } from "./FlexiSegment";
-import { Time } from "../../node_modules/@angular/common";
 export class FlexiRoute {
+    // TODO: remove parameters
+    id: number;
+    cost: number;
+    cal: number;
+    safetyFactor: number;
+    time: number;
     // array of consecutive segments
     flexiSegmentArr: Array<FlexiSegment>;
-    // starting point
-    origin :{lat:string, lon: string};
-    // ending point
-    dstn: {lat:string, lon: string};
-
+    // score used for ranking
+    score: number;
     constructor(){
-
+        this.flexiSegmentArr = new Array();
+        this.score = 0;
+        this.cost = 0;
+        this.safetyFactor = 0;
+        this.time = 0;
+        this.cal =0;
     }
-
+    // TODO: remove set parameters
+    setParams(time, cost, cal, safetyFactor) {
+        this.cost = cost;
+        this.safetyFactor = safetyFactor;
+        this.time = time;
+        this.cal = cal;
+    }
     // return the sum of the costs in each segment
     getCost(){
         let cost: number;
