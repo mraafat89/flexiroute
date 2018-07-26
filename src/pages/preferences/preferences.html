@@ -14,7 +14,7 @@
 			  Feeling Lucky
 			</ion-list-header>
 			<ion-item>
-			  <ion-range min="0" max="4" step="1"[(ngModel)]="rangeSafety" color="primary" name="rangeSafety">
+			  <ion-range min="0" max="4" step="1" debounce="700" (ionChange)="publishPreferences($event)" [(ngModel)]="rangeSafety" color="primary" name="rangeSafety">
 			    <ion-icon range-left small name="sad"></ion-icon>
 			    <ion-icon range-right name="happy"></ion-icon>
 			  </ion-range>
@@ -23,7 +23,7 @@
 			  On a Budget
 			</ion-list-header>
 			<ion-item>
-			  <ion-range min="0" max="4" step="1" [(ngModel)]="rangeCost" color="secondary" name="rangeCost">
+			  <ion-range min="0" max="4" step="1" debounce="700" (ionChange)="publishPreferences($event)" [(ngModel)]="rangeCost" color="secondary" name="rangeCost">
 			    <ion-icon range-left small name="cash"></ion-icon>
 			    <ion-icon range-right name="cash"></ion-icon>
 			  </ion-range>
@@ -32,7 +32,7 @@
 			  In a hurry
 			</ion-list-header>
 			<ion-item>
-			  <ion-range min="0" max="4" step="1"  [(ngModel)]="rangeTime" color="danger" name="rangeTime">
+			  <ion-range min="0" max="4" step="1" debounce="700" (ionChange)="publishPreferences($event)" [(ngModel)]="rangeTime" color="danger" name="rangeTime">
 			    <ion-icon range-left small name="timer"></ion-icon>
 			    <ion-icon range-right name="timer"></ion-icon>
 			  </ion-range>
@@ -41,7 +41,7 @@
 			  Getting Fit
 			</ion-list-header>
 			<ion-item>
-			  <ion-range min="0" max="4" step="1"  [(ngModel)]="rangeCal" color="dark" name="rangeCal">
+			  <ion-range min="0" max="4" step="1"  debounce="700" (ionChange)="publishPreferences($event)" [(ngModel)]="rangeCal" color="dark" name="rangeCal">
 			    <ion-icon range-left small name="bicycle"></ion-icon>
 			    <ion-icon range-right name="bicycle"></ion-icon>
 			  </ion-range>

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { Events } from 'ionic-angular';
 
 @Component({
   selector: 'page-preferences',
@@ -12,21 +13,14 @@ export class PreferencesPage {
 	rangeCost: number;
 	rangeTime: number;
 	rangeCal: number;
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, public events: Events) {
   	this.rangeSafety = 2;
   	this.rangeCost = 3;
   	this.rangeTime = 4;
   	this.rangeCal = 1;
-  	this.savePreferences();
-
+  	this.events.publish('preferences', {safety:this.rangeSafety, cost:this.rangeCost, time:this.rangeTime, cal:this.rangeCal});
   }
-  savePreferences() { 	
-  	//this.preferences.safety = this.rangeSafety;
-  	//this.preferences.cost = this.rangeCost;
-  	//this.preferencespreferences.time = this.rangeTime;
-  	//this.preferences.cal = this.rangeCal;
-  }
-  getPreferences() {
-  	return new Array(this.rangeSafety, this.rangeCost, this.rangeTime, this.rangeCal);
+  publishPreferences() { 	
+		this.events.publish('preferences', {safety:this.rangeSafety, cost:this.rangeCost, time:this.rangeTime, cal:this.rangeCal});
   }
 }
